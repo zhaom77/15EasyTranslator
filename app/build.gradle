@@ -1,0 +1,137 @@
+import com.github.megatronking.stringfog.plugin.kg.RandomKeyGenerator
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'android-junk-code'
+    id 'stringfog'
+}
+
+androidJunkCode {
+    variantConfig {
+        release {//变体名称，如果没有设置productFlavors就是buildType名称，如果有设置productFlavors就是flavor+buildType，例如（freeRelease、proRelease）
+            packageBase = "c.t.w.d"  //生成java类根包名
+            packageCount = 30 //生成包数量
+            activityCountPerPackage = 3 //每个包下生成Activity类数量
+            excludeActivityJavaFile = false //是否排除生成Activity的Java文件,默认false(layout和写入AndroidManifest.xml还会执行)，主要用于处理类似神策全埋点编译过慢问题
+            otherCountPerPackage = 50  //每个包下生成其它类的数量
+            methodCountPerClass = 20  //每个类下生成方法数量
+            resPrefix = "twd_"  //生成的layout、drawable、string等资源名前缀
+            drawableCount = 300  //生成drawable资源数量
+            stringCount = 300  //生成string数量
+        }
+    }
+}
+
+stringfog {
+    // 必要：加解密库的实现类路径，需和上面配置的加解密算法库一致。
+    implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
+    // 可选：加密开关，默认开启。
+    enable false
+    debug true
+    // 可选：指定需加密的代码包路径，可配置多个，未指定将默认全部加密。
+//    fogPackages = ['com.xxx.xxx']
+    // 可选（3.0版本新增）：指定密钥生成器，默认使用长度8的随机密钥（每个字符串均有不同随机密钥）,
+    // 也可以指定一个固定的密钥：HardCodeKeyGenerator("This is a key")
+    kg new RandomKeyGenerator()
+    // 可选（4.0版本新增）：用于控制字符串加密后在字节码中的存在形式, 默认为base64，
+    // 也可以使用text或者bytes
+    mode base64
+}
+
+android {
+    namespace 'com.example.translate'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.translate"
+        minSdk 23
+        targetSdk 33
+        versionCode 10000
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+}
+
+dependencies {
+
+    implementation project(":core")
+    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.camera:camera-lifecycle:1.2.2'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //可忽略，因为核心库是由camera-camera2间接包含
+    implementation 'androidx.camera:camera-core:1.3.0-alpha06'
+    //核心库是由camera-camera2
+    implementation 'androidx.camera:camera-camera2:1.3.0-alpha06'
+    implementation 'androidx.camera:camera-view:1.3.0-alpha06'
+
+    //mmkv
+    implementation 'com.tencent:mmkv-static:1.2.10'
+    implementation 'com.blankj:utilcodex:1.31.1'
+
+    //字符串加密
+    implementation 'com.github.megatronking.stringfog:xor:4.0.1'
+
+    //翻译
+    implementation 'com.google.mlkit:translate:17.0.1'
+    implementation 'com.google.mlkit:language-id:17.0.4'
+    // To recognize Latin script
+    implementation 'com.google.mlkit:text-recognition:16.0.0'
+
+    // To recognize Chinese script
+    implementation 'com.google.mlkit:text-recognition-chinese:16.0.0'
+
+    // To recognize Devanagari script
+    implementation 'com.google.mlkit:text-recognition-devanagari:16.0.0'
+
+    // To recognize Japanese script
+    implementation 'com.google.mlkit:text-recognition-japanese:16.0.0'
+
+    // To recognize Korean script
+    implementation 'com.google.mlkit:text-recognition-korean:16.0.0'
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-config-ktx'
+
+    //ad
+    implementation 'com.facebook.android:facebook-android-sdk:12.3.0'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
+    implementation 'com.google.ads.mediation:facebook:6.11.0.0'
+
+}

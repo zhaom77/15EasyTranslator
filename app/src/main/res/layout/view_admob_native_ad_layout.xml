@@ -1,0 +1,120 @@
+<com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_native_ad">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/media_card_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:layout_constraintDimensionRatio="16:9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.gms.ads.nativead.MediaView
+                    android:id="@+id/media_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/icon_card_view"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginVertical="12dp"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/media_card_view"
+                app:layout_constraintTop_toBottomOf="@id/media_card_view">
+
+                <ImageView
+                    android:id="@+id/ad_icon_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/ad_title_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="6dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="@color/color_333333"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/ad_desc_text"
+                app:layout_constraintEnd_toStartOf="@id/ad_button"
+                app:layout_constraintStart_toEndOf="@id/icon_card_view"
+                app:layout_constraintTop_toTopOf="@id/icon_card_view"
+                tools:text="@string/app_name" />
+
+
+            <TextView
+                android:id="@+id/ad_desc_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="6dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxLines="1"
+                android:textColor="#B9B9B9"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/icon_card_view"
+                app:layout_constraintEnd_toStartOf="@id/ad_button"
+                app:layout_constraintStart_toEndOf="@id/icon_card_view"
+                app:layout_constraintTop_toBottomOf="@id/ad_title_text"
+                tools:text="@string/app_name" />
+
+
+            <TextView
+                android:id="@+id/ad_button"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/bg_native_ad_button"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="INSTALL"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/icon_card_view"
+                app:layout_constraintEnd_toEndOf="@id/media_card_view"
+                app:layout_constraintTop_toTopOf="@id/icon_card_view" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/ad_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:src="@mipmap/icon_ad"/>
+
+    </FrameLayout>
+
+
+</com.google.android.gms.ads.nativead.NativeAdView>

@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Easy Translator</string>
+    <string name="vpn">VPN</string>
+    <string name="translate">Translate</string>
+    <string name="translate_input_tip">Enter text here…</string>
+    <string name="result">Result</string>
+    <string name="result_fail_tip">Sorry, translation failed.</string>
+    <string name="try_it_again">Try it Again</string>
+    <string name="orc">ORC</string>
+    <string name="translating">Translating…%s</string>
+    <string name="reject_camera_permission">Camera permission not obtained</string>
+    <string name="goto_setting_open_permission">Please go to settings to enable camera permissions</string>
+    <string name="ok">OK</string>
+    <string name="copy" tools:ignore="PrivateResource">Copy</string>
+    <string name="retry">Retry</string>
+    <string name="language">Language</string>
+    <string name="skip">Skip</string>
+    <string name="wait_skip">Skip(%s)</string>
+    <string name="connect_guide_desc">Open to protect your privacy and speed up your Internet access</string>
+    <string name="try_it_now">Try It Now</string>
+    <string name="start_connect">Start to Connect</string>
+    <string name="connecting">Connecting…%s</string>
+    <string name="vpn_is_on">VPN is ON</string>
+    <string name="disconnecting">Disconnecting…%s</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="click_speed_up">Click to speed up.</string>
+    <string name="identifying">Identifying…%s</string>
+    <string name="click_translate">Click to translate.</string>
+    <string name="wait_process_tip">Please wait for the process to complete. . .</string>
+    <string name="identify_fail_tip">Text recognition failed, please try again!</string>
+    <string name="translate_default_lan">Hello, the translation is successful, thanks for using!</string>
+    <string name="not_text_tip">You have not entered the text to be translated!</string>
+</resources>
