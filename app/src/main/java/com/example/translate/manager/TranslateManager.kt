@@ -15,14 +15,15 @@ import com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions
 import com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.*
 import kotlin.coroutines.resume
 
 class TranslateManager {
 
     companion object {
+        const val TAG = "TranslateManager"
         val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { TranslateManager() }
+        const val TIME_OUT = 60 * 1000L
     }
 
     suspend fun startOcrScan(context: Context, sourceLan: String, uri: Uri): String? =
@@ -33,9 +34,15 @@ class TranslateManager {
                 return@suspendCancellableCoroutine
             }
             val recognizer = getTextRecognizer(sourceLan)
+            val job = GlobalScope.launch {
+                delay(TIME_OUT)
+                it.resume(null)
+            }
             recognizer.process(image).addOnSuccessListener { text ->
+                job.cancel()
                 it.resume(text.text)
             }.addOnFailureListener { _ ->
+                job.cancel()
                 it.resume(null)
             }
         }
@@ -65,14 +72,19 @@ class TranslateManager {
      * @return null:表示识别失败，空表示不支持语言
      */
     suspend fun getTextLan(text: String): String? = suspendCancellableCoroutine {
-
+        val job = GlobalScope.launch {
+            delay(TIME_OUT)
+            it.resume(null)
+        }
         LanguageIdentification.getClient().identifyLanguage(text).addOnSuccessListener { code ->
+            job.cancel()
             if (code != "und") {
                 it.resume(code)
             } else {
                 it.resume("")
             }
         }.addOnFailureListener { _ ->
+            job.cancel()
             it.resume(null)
         }
     }
@@ -82,13 +94,23 @@ class TranslateManager {
             val options = TranslatorOptions.Builder().setSourceLanguage(sourceLan)
                 .setTargetLanguage(targetLan).build()
             val translator = Translation.getClient(options)
+            val job = GlobalScope.launch {
+                delay(TIME_OUT)
+                continuation.resume(null)
+            }
             translator.downloadModelIfNeeded().addOnSuccessListener {
                 translator.translate(text).addOnSuccessListener {
+                    Logger.d({ TAG }, { "translate success" })
+                    job.cancel()
                     continuation.resume(it)
                 }.addOnFailureListener {
+                    Logger.d({ TAG }, { "translate fail" })
+                    job.cancel()
                     continuation.resume(null)
                 }
             }.addOnFailureListener { _ ->
+                job.cancel()
+                Logger.d({ TAG }, { "download translate fail" })
                 continuation.resume(null)
             }
         }

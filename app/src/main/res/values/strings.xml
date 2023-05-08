@@ -31,4 +31,8 @@
     <string name="identify_fail_tip">Text recognition failed, please try again!</string>
     <string name="translate_default_lan">Hello, the translation is successful, thanks for using!</string>
     <string name="not_text_tip">You have not entered the text to be translated!</string>
+    <string name="camera_permission_title">Please open the permission of camera</string>
+    <string name="camera_permission_desc">Use the camera to recognize text.</string>
+    <string name="close">Close</string>
+    <string name="open">Open</string>
 </resources>

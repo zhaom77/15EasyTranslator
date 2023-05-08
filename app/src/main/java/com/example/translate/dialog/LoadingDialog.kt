@@ -1,10 +1,10 @@
 package com.example.translate.dialog
 
 import android.animation.ValueAnimator
-import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import androidx.core.animation.addListener
 import com.example.translate.R
 import com.example.translate.databinding.DialogTranslatingLayoutBinding
