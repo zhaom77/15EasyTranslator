@@ -178,9 +178,9 @@ class VpnService : BaseVpnService(), BaseService.Interface {
         if (profile.ipv6) builder.addAddress(PRIVATE_VLAN6_CLIENT, 126)
 
         if (profile.proxyApps) {
-            //val me = packageName
+            val me = packageName
             profile.individual.split('\n')
-                //.filter { it != me }
+                .filter { it != me }
                 .forEach {
                     try {
                         if (profile.bypass) builder.addDisallowedApplication(it)
@@ -189,7 +189,7 @@ class VpnService : BaseVpnService(), BaseService.Interface {
                         Timber.w(ex)
                     }
                 }
-            //if (!profile.bypass) builder.addAllowedApplication(me)
+            if (!profile.bypass) builder.addAllowedApplication(me)
         }
 
         when (profile.route) {

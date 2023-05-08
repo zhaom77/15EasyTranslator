@@ -16,7 +16,7 @@ class UserManager {
         const val TAG = "UserManager"
     }
 
-    val isNormalUser: Boolean = TranslatorConfig.mlType != UserType.ML.type || ConfigManager.instance.getMode() == 1L
+    val isNormalUser: Boolean = /*TranslatorConfig.mlType != UserType.ML.type || ConfigManager.instance.getMode() == 1L*/false
 
     val isPlanA = !isNormalUser && TranslatorConfig.userPlan == UserPlan.A.plan
 

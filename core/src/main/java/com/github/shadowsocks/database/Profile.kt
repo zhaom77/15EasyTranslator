@@ -61,7 +61,7 @@ data class Profile(
 
         var route: String = "all",
         var remoteDns: String = "dns.google",
-        var proxyApps: Boolean = true,
+        var proxyApps: Boolean = false,
         var bypass: Boolean = false,
         var udpdns: Boolean = false,
         var ipv6: Boolean = false,
