@@ -35,7 +35,11 @@ class Translator : Application(), Utils.OnAppStatusChangedListener {
 
     override fun onCreate() {
         super.onCreate()
-        Core.init(this, WelcomeActivity::class)
+        try {
+            Core.init(this, WelcomeActivity::class)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         if (getProcessName(Process.myPid()) != packageName) return
         Firebase.initialize(this)
         MMKV.initialize(this)

@@ -43,11 +43,13 @@ class TranslateManager {
                 it.resume(null)
             }
             recognizer.process(image).addOnSuccessListener { text ->
+                recognizer.close()
                 if (!isTimeOut) {
                     job.cancel()
                     it.resume(text.text)
                 }
             }.addOnFailureListener { _ ->
+                recognizer.close()
                 if (!isTimeOut) {
                     job.cancel()
                     it.resume(null)
@@ -86,7 +88,9 @@ class TranslateManager {
             isTimeOut = true
             it.resume(null)
         }
-        LanguageIdentification.getClient().identifyLanguage(text).addOnSuccessListener { code ->
+        val identification = LanguageIdentification.getClient()
+        identification.identifyLanguage(text).addOnSuccessListener { code ->
+            identification.close()
             if (!isTimeOut) {
                 job.cancel()
                 if (code != "und") {
@@ -96,6 +100,7 @@ class TranslateManager {
                 }
             }
         }.addOnFailureListener { _ ->
+            identification.close()
             if (!isTimeOut) {
                 job.cancel()
                 it.resume(null)
@@ -117,12 +122,14 @@ class TranslateManager {
             translator.downloadModelIfNeeded().addOnSuccessListener {
                 translator.translate(text).addOnSuccessListener {
                     Logger.d({ TAG }, { "translate success" })
+                    translator.close()
                     if (!isTimeOut) {
                         job.cancel()
                         continuation.resume(it)
                     }
                 }.addOnFailureListener {
                     Logger.d({ TAG }, { "translate fail" })
+                    translator.close()
                     if (!isTimeOut) {
                         job.cancel()
                         continuation.resume(null)
@@ -130,6 +137,7 @@ class TranslateManager {
                 }
             }.addOnFailureListener { _ ->
                 Logger.d({ TAG }, { "download translate fail" })
+                translator.close()
                 if (!isTimeOut) {
                     job.cancel()
                     continuation.resume(null)

@@ -14,9 +14,10 @@ import com.example.translate.manager.FirebaseManager
 import com.example.translate.manager.Logger
 import com.example.translate.manager.UserManager
 import com.github.shadowsocks.bg.BaseService
-import com.google.android.gms.ads.AdLoader
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.google.mlkit.common.model.DownloadConditions
+import com.google.mlkit.common.model.RemoteModelManager
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.TranslateRemoteModel
 
 class WelcomeActivity : BaseActivity() {
 
@@ -46,11 +47,13 @@ class WelcomeActivity : BaseActivity() {
         startAnim(15000) {
             gotoMain()
         }
+        startDownloadTransMode()
         UserManager.instance.apply {
             getConfigInfo {
                 if (isDestroyed) return@getConfigInfo
                 if (isPlanA) {
-                    mConnectManager = ConnectManager(this@WelcomeActivity,
+                    mConnectManager = ConnectManager(
+                        this@WelcomeActivity,
                         object : ConnectManager.OnConnectListener {
                             override fun onObtainPermissionFail() {
                                 loadAd()
@@ -123,7 +126,7 @@ class WelcomeActivity : BaseActivity() {
 
     private fun gotoMain() {
         if (!isDestroyed && !mIsBack) {
-            Logger.d({LoadAd.mTag}, {"start main activity"})
+            Logger.d({ LoadAd.mTag }, { "start main activity" })
             startActivity(Intent(this, MainActivity::class.java))
         }
         finish()
@@ -151,5 +154,17 @@ class WelcomeActivity : BaseActivity() {
 
     override fun onBackPressed() = Unit
 
+    private fun startDownloadTransMode() {
+        try {
+            val modeManager = RemoteModelManager.getInstance()
+            val enModel = TranslateRemoteModel.Builder(TranslateLanguage.ENGLISH).build()
+            val hindiModel = TranslateRemoteModel.Builder(TranslateLanguage.HINDI).build()
+            val conditions = DownloadConditions.Builder().requireWifi().build()
+            modeManager.download(enModel, conditions)
+            modeManager.download(hindiModel, conditions)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 
 }

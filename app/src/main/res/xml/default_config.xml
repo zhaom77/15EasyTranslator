@@ -11,17 +11,16 @@
         <key>serve_rate</key>
         <value>40</value>
     </entry>
-
-    <entry>
+<!--    <entry>
         <key>connects</key>
         <value>
             ewogICJzIjpbCiAgICB7CiAgICAgICJjIjoiVVMiLAogICAgICAibiI6IlVTLU5ldyBZb3JrIiwKICAgICAgImEiOiIzOC45MS4xMDAuNzQiLAogICAgICAicCI6OTA5OCwKICAgICAgInBzIjoia3NqZnV3IXNvcCMiCQogICAgfSx7CiAgICAgICJjIjoiVVMiLAogICAgICAibiI6IlVTLUFzaGJ1cm4iLAogICAgICAiYSI6IjM4LjEwNy4yMjYuMTQ1IiwKICAgICAgInAiOjkwOTgsCiAgICAgICJwcyI6ImtzamZ1dyFzb3AjIgkKICAgIH0sewogICAgICAiYyI6Ik5aTCIsCiAgICAgICJuIjoiTmV3IFplYWxhbmQiLAogICAgICAiYSI6IjEwMy4yMDguODYuMTU0IiwKICAgICAgInAiOjkwOTgsCiAgICAgICJwcyI6ImtzamZ1dyFzb3AjIgkKICAgIH0sewogICAgICAiYyI6Ik5aTCIsCiAgICAgICJuIjoiTmV3IFplYWxhbmQxIiwKICAgICAgImEiOiIxODUuOTkuMTMzLjE1NSIsCiAgICAgICJwIjo5MDk4LAogICAgICAicHMiOiJrc2pmdXchc29wIyIJCiAgICB9CiAgXSwKICAicHJzIjpbCiAgICB7CiAgICAgICJjIjoiVVMiLAogICAgICAicHIiOjUwCiAgICB9LHsKICAgICAgImMiOiJOWkwiLAogICAgICAicHIiOjUwCiAgICB9CiAgXQp9
         </value>
-    </entry>
+    </entry>-->
     <!--1:开启 0：关闭-->
     <entry>
         <key>mode</key>
-        <value>0</value>
+        <value>1</value>
     </entry>
 
 </defaultsMap>
