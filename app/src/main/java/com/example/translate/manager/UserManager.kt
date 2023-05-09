@@ -3,8 +3,8 @@ package com.example.translate.manager
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.example.translate.Translator
+import com.example.translate.ad.AdManager
 import com.example.translate.config.TranslatorConfig
-import com.example.translate.ui.WelcomeActivity
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.*
 import kotlin.coroutines.resume
@@ -16,9 +16,11 @@ class UserManager {
         const val TAG = "UserManager"
     }
 
-    val isNormalUser: Boolean = /*TranslatorConfig.mlType != UserType.ML.type || ConfigManager.instance.getMode() == 1L*/false
+    val isNormalUser: Boolean
+        get() = TranslatorConfig.mlType != UserType.ML.type || ConfigManager.instance.getMode() == 1L
 
-    val isPlanA = !isNormalUser && TranslatorConfig.userPlan == UserPlan.A.plan
+    val isPlanA
+        get() = !isNormalUser && TranslatorConfig.userPlan == UserPlan.A.plan
 
 
     fun getConfigInfo(complete: () -> Unit) = GlobalScope.launch {
@@ -33,16 +35,16 @@ class UserManager {
         }
         config.await() + refer.await()
         Logger.d(
-            { WelcomeActivity.TAG },
+            { TAG },
             { "rate: $rate type: ${TranslatorConfig.mlType} plan: ${TranslatorConfig.userPlan}" })
         if (TranslatorConfig.userPlan == UserPlan.NONE.plan) {
-            Logger.d({ WelcomeActivity.TAG }, { "start setting user type" })
+            Logger.d({ TAG }, { "start setting user type" })
             TranslatorConfig.userPlan = if (TranslatorConfig.mlType != UserType.ML.type) {
                 UserPlan.B.plan
             } else {
                 FirebaseManager.instance.onEvent(FirebaseManager.EventType.AB_RAM)
                 val random = RandomManager.random()
-                Logger.d({ TAG}, {"random: $random"})
+                Logger.d({ TAG }, { "random: $random" })
                 if (rate >= random) {
                     FirebaseManager.instance.onEvent(FirebaseManager.EventType.AB_A)
                     UserPlan.A.plan
@@ -54,6 +56,10 @@ class UserManager {
         }
         Logger.d({ TAG }, { "set complete user plan a: $isPlanA" })
         withContext(Dispatchers.Main) {
+            val adConf = ConfigManager.instance.getAdConf()
+            withContext(Dispatchers.IO) {
+                AdManager.instance.init(adConf)
+            }
             complete.invoke()
         }
     }

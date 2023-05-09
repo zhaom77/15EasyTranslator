@@ -13,12 +13,13 @@ import com.example.translate.manager.FirebaseManager
 import com.example.translate.ui.WelcomeActivity
 import com.github.shadowsocks.Core
 import com.google.android.gms.ads.AdActivity
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.*
 
-class Translator: Application(), Utils.OnAppStatusChangedListener {
+class Translator : Application(), Utils.OnAppStatusChangedListener {
 
     companion object {
         @SuppressLint("StaticFieldLeak")
@@ -38,6 +39,11 @@ class Translator: Application(), Utils.OnAppStatusChangedListener {
         if (getProcessName(Process.myPid()) != packageName) return
         Firebase.initialize(this)
         MMKV.initialize(this)
+        try {
+            MobileAds.initialize(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         AppUtils.registerAppStatusChangedListener(this)
         FirebaseManager.instance.init(this)
     }

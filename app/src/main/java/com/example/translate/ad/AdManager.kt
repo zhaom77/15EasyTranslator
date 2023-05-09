@@ -32,17 +32,13 @@ class AdManager {
     private val mOutTimeMap = hashMapOf<AdPosition, Runnable>()
     private var mAdConfig: AdConfig? = null
 
-    fun isShowBackAd(): Boolean = mAdConfig?.showBackAd?: false
+    fun isShowBackAd(): Boolean = mAdConfig?.showBackAd ?: false
 
-    fun init() {
+    fun init(adConfig: String) {
         try {
-            val json = JSONObject(
-                String(
-                    Base64.decode(
-                        ConfigManager.instance.getAdConf(), Base64.NO_WRAP
-                    )
-                )
-            )
+            val str = String(Base64.decode(adConfig, Base64.NO_WRAP))
+            Logger.d({ LoadAd.mTag }, { "adConfig: $str" })
+            val json = JSONObject(str)
             mAdConfig = AdConfig.Parser.parse(json)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -51,7 +47,7 @@ class AdManager {
 
     fun loadAd(context: Context, position: AdPosition, complete: ((Boolean) -> Unit)? = null) {
         if (mAdConfig == null) {
-            init()
+            init(ConfigManager.instance.getAdConf())
         }
         if (mAdConfig == null) {
             complete?.invoke(false)

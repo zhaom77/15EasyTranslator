@@ -1,5 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Easy Translator</string>
+
+    <string name="facebook_app_id">1175956893017028</string>
+    <string name="fb_login_protocol_scheme">fb1175956893017028</string>
+    <string name="facebook_client_token">c8717810e132f3c605e0ccbba6a3e1b0</string>
+
     <string name="vpn">VPN</string>
     <string name="translate">Translate</string>
     <string name="translate_input_tip">Enter text here…</string>
@@ -11,7 +16,7 @@
     <string name="reject_camera_permission">Camera permission not obtained</string>
     <string name="goto_setting_open_permission">Please go to settings to enable camera permissions</string>
     <string name="ok">OK</string>
-    <string name="copy" tools:ignore="PrivateResource">Copy</string>
+    <string name="easy_copy">Copy</string>
     <string name="retry">Retry</string>
     <string name="language">Language</string>
     <string name="skip">Skip</string>

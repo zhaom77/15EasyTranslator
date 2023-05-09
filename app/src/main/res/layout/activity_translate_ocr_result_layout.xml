@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/copy"
+            android:text="@string/easy_copy"
             android:textColor="@color/white"
             android:textSize="15sp" />
 

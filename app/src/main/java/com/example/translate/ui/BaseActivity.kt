@@ -15,7 +15,7 @@ abstract class BaseActivity : AppCompatActivity() {
     var isPause = false
     private var mContentLayout: FrameLayout? = null
 
-    private var isNavigationBar = false
+//    private var isNavigationBar = false
 
     abstract fun getRootView(): View
 

@@ -46,9 +46,6 @@ class WelcomeActivity : BaseActivity() {
         startAnim(15000) {
             gotoMain()
         }
-        GlobalScope.launch {
-            AdManager.instance.init()
-        }
         UserManager.instance.apply {
             getConfigInfo {
                 if (isDestroyed) return@getConfigInfo

@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.addTextChangedListener
 import com.example.translate.R
 import com.example.translate.ad.AdManager
 import com.example.translate.ad.AdPosition
@@ -46,6 +47,9 @@ class TranslateActivity : AdActivity() {
         mBinding.apply {
             leftText.text = mSourceLanInfo.name
             rightText.text = mTargetLanInfo.name
+            translateEdit.addTextChangedListener {
+                deleteImage.visibility = if (it.isNullOrEmpty()) View.GONE else View.VISIBLE
+            }
             if (firstInput) {
                 translateEdit.setText(inputText.ifEmpty { getString(R.string.translate_default_lan) })
             } else {

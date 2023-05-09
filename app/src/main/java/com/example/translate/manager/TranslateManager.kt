@@ -2,7 +2,6 @@ package com.example.translate.manager
 
 import android.content.Context
 import android.net.Uri
-import com.example.translate.config.TranslatorConfig
 import com.example.translate.info.LanguageInfo
 import com.google.mlkit.nl.languageid.LanguageIdentification
 import com.google.mlkit.nl.translate.Translation
@@ -15,7 +14,10 @@ import com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions
 import com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 class TranslateManager {
@@ -34,16 +36,22 @@ class TranslateManager {
                 return@suspendCancellableCoroutine
             }
             val recognizer = getTextRecognizer(sourceLan)
+            var isTimeOut = false
             val job = GlobalScope.launch {
                 delay(TIME_OUT)
+                isTimeOut = true
                 it.resume(null)
             }
             recognizer.process(image).addOnSuccessListener { text ->
-                job.cancel()
-                it.resume(text.text)
+                if (!isTimeOut) {
+                    job.cancel()
+                    it.resume(text.text)
+                }
             }.addOnFailureListener { _ ->
-                job.cancel()
-                it.resume(null)
+                if (!isTimeOut) {
+                    job.cancel()
+                    it.resume(null)
+                }
             }
         }
 
@@ -72,20 +80,26 @@ class TranslateManager {
      * @return null:表示识别失败，空表示不支持语言
      */
     suspend fun getTextLan(text: String): String? = suspendCancellableCoroutine {
+        var isTimeOut = false
         val job = GlobalScope.launch {
             delay(TIME_OUT)
+            isTimeOut = true
             it.resume(null)
         }
         LanguageIdentification.getClient().identifyLanguage(text).addOnSuccessListener { code ->
-            job.cancel()
-            if (code != "und") {
-                it.resume(code)
-            } else {
-                it.resume("")
+            if (!isTimeOut) {
+                job.cancel()
+                if (code != "und") {
+                    it.resume(code)
+                } else {
+                    it.resume("")
+                }
             }
         }.addOnFailureListener { _ ->
-            job.cancel()
-            it.resume(null)
+            if (!isTimeOut) {
+                job.cancel()
+                it.resume(null)
+            }
         }
     }
 
@@ -94,24 +108,32 @@ class TranslateManager {
             val options = TranslatorOptions.Builder().setSourceLanguage(sourceLan)
                 .setTargetLanguage(targetLan).build()
             val translator = Translation.getClient(options)
+            var isTimeOut = false
             val job = GlobalScope.launch {
                 delay(TIME_OUT)
+                isTimeOut = true
                 continuation.resume(null)
             }
             translator.downloadModelIfNeeded().addOnSuccessListener {
                 translator.translate(text).addOnSuccessListener {
                     Logger.d({ TAG }, { "translate success" })
-                    job.cancel()
-                    continuation.resume(it)
+                    if (!isTimeOut) {
+                        job.cancel()
+                        continuation.resume(it)
+                    }
                 }.addOnFailureListener {
                     Logger.d({ TAG }, { "translate fail" })
+                    if (!isTimeOut) {
+                        job.cancel()
+                        continuation.resume(null)
+                    }
+                }
+            }.addOnFailureListener { _ ->
+                Logger.d({ TAG }, { "download translate fail" })
+                if (!isTimeOut) {
                     job.cancel()
                     continuation.resume(null)
                 }
-            }.addOnFailureListener { _ ->
-                job.cancel()
-                Logger.d({ TAG }, { "download translate fail" })
-                continuation.resume(null)
             }
         }
 
