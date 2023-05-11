@@ -20,4 +20,13 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# 移除打包后相关日志字符串
+-assumenosideeffects class android.util.Log{
+    public *** d(...);
+    public *** e(...);
+    public *** i(...);
+    public *** w(...);
+    public *** v(...);
+}
+
 -keep class c.e.t.l.** {*;}
