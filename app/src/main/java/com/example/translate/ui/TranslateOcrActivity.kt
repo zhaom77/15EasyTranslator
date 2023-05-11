@@ -1,7 +1,6 @@
 package com.example.translate.ui
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -54,19 +53,7 @@ class TranslateOcrActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            val isSetting = shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
-            mPermissionDialog = CameraPermissionDescDialog(this, isSetting) {
-                if (isSetting) {
-                    mIsGotoSetting = true
-                } else {
-                    requestPermissions(arrayOf(Manifest.permission.CAMERA), 101)
-                }
-            }
-            mPermissionDialog?.show()
-        } else {
-            startPreview()
-        }
+        obtainPer()
         mBinding.apply {
             backImage.setOnClickListener {
                 onBackPressed()
@@ -74,7 +61,11 @@ class TranslateOcrActivity : BaseActivity() {
             photographImage.setOnClickListener {
                 guideBgView.visibility = View.GONE
                 clickTranslateText.visibility = View.GONE
-                startIdentify()
+                if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+                    obtainPer()
+                } else {
+                    startIdentify()
+                }
             }
             formerLanguageLayout.setOnClickListener {
                 mSelectResult?.launch(Intent(
@@ -98,6 +89,22 @@ class TranslateOcrActivity : BaseActivity() {
                     startIdentify()
                 }
             }
+        }
+    }
+
+    private fun obtainPer() {
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            val isSetting = shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
+            mPermissionDialog = CameraPermissionDescDialog(this, isSetting) {
+                if (isSetting) {
+                    mIsGotoSetting = true
+                } else {
+                    requestPermissions(arrayOf(Manifest.permission.CAMERA), 101)
+                }
+            }
+            mPermissionDialog?.show()
+        } else {
+            startPreview()
         }
     }
 

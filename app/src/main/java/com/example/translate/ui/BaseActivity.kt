@@ -13,9 +13,8 @@ import com.example.translate.ex.statusBarHeight
 abstract class BaseActivity : AppCompatActivity() {
 
     var isPause = false
+        private set
     private var mContentLayout: FrameLayout? = null
-
-//    private var isNavigationBar = false
 
     abstract fun getRootView(): View
 
@@ -25,15 +24,6 @@ abstract class BaseActivity : AppCompatActivity() {
         setContentView(view)
         initStatusBar(view)
         setStatusBar(view)
-/*        mContentLayout = findViewById(android.R.id.content)
-        mContentLayout?.viewTreeObserver?.addOnGlobalLayoutListener(object :
-            OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                mContentLayout?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-                setNavigationBarPadding(mContentLayout!!)
-            }
-
-        })*/
     }
 
     override fun onResume() {
@@ -71,64 +61,4 @@ abstract class BaseActivity : AppCompatActivity() {
         val controller = ViewCompat.getWindowInsetsController(view)
         controller?.isAppearanceLightStatusBars = true
     }
-
-
-    /**
-     * 设置导航栏的距离，留出导航栏位置
-     */
-    /*private fun setNavigationBarPadding(content: FrameLayout) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            return
-        }
-        val currentExist = isNavigationBarExist()
-        if (currentExist != isNavigationBar) {
-            isNavigationBar = currentExist
-            if (currentExist) {
-                val height = getNavigationBarHeight()
-                if (height > 0) {
-                    content.setPadding(
-                        content.paddingLeft,
-                        content.paddingTop,
-                        content.paddingRight,
-                        content.paddingBottom + height
-                    )
-                }
-            } else {
-                content.setPadding(
-                    content.paddingLeft,
-                    content.paddingTop,
-                    content.paddingRight,
-                    content.paddingBottom
-                )
-            }
-        }
-    }
-
-    *//**
-     * 获取导航栏的高度
-     *//*
-    @SuppressLint("DiscouragedApi", "InternalInsetResource")
-    private fun getNavigationBarHeight(): Int {
-        val resources = this.resources
-        val resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            return resources.getDimensionPixelSize(resourceId)
-        }
-        return 0
-    }
-
-    *//**
-     * 判断导航栏是否存在
-     *//*
-    private fun isNavigationBarExist(): Boolean {
-        val vp = this.window.decorView as ViewGroup
-        for (i in 0 until vp.childCount) {
-            if (vp.getChildAt(i).id != -1 &&
-                this.resources.getResourceEntryName(vp.getChildAt(i).id) == "navigationBarBackground"
-            ) {
-                return true
-            }
-        }
-        return false
-    }*/
 }

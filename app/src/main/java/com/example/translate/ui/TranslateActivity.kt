@@ -226,7 +226,7 @@ class TranslateActivity : AdActivity() {
         super.onResume()
         AdManager.instance.apply {
             loadAd(this@TranslateActivity, AdPosition.TRANSLATE_NATIVE_AD) {
-                if (it) {
+                if (it && !isPause) {
                     showAd(
                         this@TranslateActivity, AdPosition.TRANSLATE_NATIVE_AD, mBinding.adLayout
                     )

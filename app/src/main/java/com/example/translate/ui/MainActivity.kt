@@ -61,7 +61,7 @@ class MainActivity : BaseActivity() {
         super.onResume()
         AdManager.instance.apply {
             loadAd(this@MainActivity, AdPosition.MAIN_NATIVE_AD) {
-                if (it) {
+                if (it && !isPause) {
                     showAd(this@MainActivity, AdPosition.MAIN_NATIVE_AD, mBinding.adLayout)
                 }
             }

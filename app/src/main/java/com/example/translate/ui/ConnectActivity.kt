@@ -250,7 +250,7 @@ class ConnectActivity : BaseActivity(), ConnectManager.OnConnectListener {
         super.onResume()
         AdManager.instance.apply {
             loadAd(this@ConnectActivity, AdPosition.TRANSLATE_NATIVE_AD) {
-                if (it) {
+                if (it && !isPause) {
                     showAd(this@ConnectActivity, AdPosition.TRANSLATE_NATIVE_AD, mBinding.adLayout)
                 }
             }

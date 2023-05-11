@@ -49,7 +49,7 @@ class ConnectResultActivity : AdActivity() {
         super.onResume()
         AdManager.instance.apply {
             loadAd(this@ConnectResultActivity, AdPosition.MAIN_NATIVE_AD) {
-                if (it) {
+                if (it && !isPause) {
                     showAd(this@ConnectResultActivity, AdPosition.MAIN_NATIVE_AD, mBinding.adLayout)
                 }
             }
