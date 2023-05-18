@@ -11,7 +11,6 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.example.translate.manager.FirebaseManager
 import com.example.translate.ui.WelcomeActivity
-import com.github.shadowsocks.Core
 import com.google.android.gms.ads.AdActivity
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.ktx.Firebase
@@ -35,11 +34,11 @@ class Translator : Application(), Utils.OnAppStatusChangedListener {
 
     override fun onCreate() {
         super.onCreate()
-        try {
+/*        try {
             Core.init(this, WelcomeActivity::class)
         } catch (e: Exception) {
             e.printStackTrace()
-        }
+        }*/
         if (getProcessName(Process.myPid()) != packageName) return
         Firebase.initialize(this)
         MMKV.initialize(this)

@@ -49,7 +49,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
-        <activity
+  <!--      <activity
             android:name="com.example.translate.ui.ConnectGuideActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
@@ -62,7 +62,7 @@
         <activity
             android:name="com.example.translate.ui.ConnectActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" />-->
 
         <activity
             android:name="com.example.translate.ui.TranslateOcrResultActivity"

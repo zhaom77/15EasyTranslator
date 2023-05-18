@@ -1,34 +1,13 @@
 package com.example.translate.manager
 
-import android.os.Handler
-import android.os.Looper
-import android.os.RemoteException
-import android.util.Base64
-import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import com.example.translate.info.ConnectInfo
-import com.example.translate.info.CountryPerInfo
-import com.github.shadowsocks.Core
-import com.github.shadowsocks.aidl.IShadowsocksService
-import com.github.shadowsocks.aidl.ShadowsocksConnection
-import com.github.shadowsocks.bg.BaseService
-import com.github.shadowsocks.database.Profile
-import com.github.shadowsocks.database.ProfileManager
-import com.github.shadowsocks.utils.StartService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import java.util.*
 
 class ConnectManager(
-    private val activity: AppCompatActivity, private val listener: OnConnectListener
-) : ShadowsocksConnection.Callback {
+    private val activity: AppCompatActivity/*, private val listener: OnConnectListener*/
+) /*: ShadowsocksConnection.Callback*/ {
 
-    companion object {
+    /*companion object {
         const val TAG = "ConnectManager"
         var mConnectState = BaseService.State.Idle
         var mCurrentProfile: Profile? = null
@@ -56,9 +35,9 @@ class ConnectManager(
         }
     }
 
-    /**
+    *//**
      * 切换链接
-     */
+     *//*
     fun switchConnect() {
         if (mConnectState.canStop) {
             Core.stopService()
@@ -113,9 +92,9 @@ class ConnectManager(
         startConnect()
     }
 
-    /**
+    *//**
      * 链接状态改变
-     */
+     *//*
     private fun onStateChange(state: BaseService.State) {
         mConnectState = state
         setUserDz()
@@ -288,5 +267,5 @@ class ConnectManager(
             e.printStackTrace()
         }
         return connectInfo
-    }
+    }*/
 }

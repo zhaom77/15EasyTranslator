@@ -1,14 +1,7 @@
 package com.example.translate.ui
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
-import com.example.translate.R
-import com.example.translate.ad.AdManager
-import com.example.translate.ad.AdPosition
 import com.example.translate.databinding.ActivityConnectResultLayoutBinding
-import com.example.translate.manager.ConnectManager
-import com.github.shadowsocks.bg.BaseService
 
 class ConnectResultActivity : AdActivity() {
 
@@ -16,7 +9,7 @@ class ConnectResultActivity : AdActivity() {
 
     override fun getRootView(): View = mBinding.root
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.apply {
             if (ConnectManager.mConnectState == BaseService.State.Connected) {
@@ -54,5 +47,5 @@ class ConnectResultActivity : AdActivity() {
                 }
             }
         }
-    }
+    }*/
 }

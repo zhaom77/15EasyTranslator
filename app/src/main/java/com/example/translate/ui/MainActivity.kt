@@ -6,9 +6,7 @@ import android.view.View
 import com.example.translate.ad.AdManager
 import com.example.translate.ad.AdPosition
 import com.example.translate.databinding.ActivityMainLayoutBinding
-import com.example.translate.manager.ConnectManager
 import com.example.translate.manager.UserManager
-import com.github.shadowsocks.bg.BaseService
 
 class MainActivity : BaseActivity() {
 
@@ -30,7 +28,7 @@ class MainActivity : BaseActivity() {
                     startActivity(Intent(this@MainActivity, TranslateOcrActivity::class.java))
                 }
             }
-            vpnCardView.setOnClickListener {
+/*            vpnCardView.setOnClickListener {
                 skip {
                     startActivity(Intent(this@MainActivity, ConnectActivity::class.java))
                 }
@@ -42,7 +40,7 @@ class MainActivity : BaseActivity() {
                 }
             } else {
                 vpnCardView.visibility = View.GONE
-            }
+            }*/
         }
         AdManager.instance.loadAd(this, AdPosition.TRANSLATE_NATIVE_AD)
     }

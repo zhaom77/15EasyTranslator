@@ -38,7 +38,7 @@ class TranslateResultActivity : AdActivity() {
                     finish()
                     CommunicationManager.instance.startTranslate()
                 }
-                if (UserManager.instance.isNormalUser) {
+/*                if (UserManager.instance.isNormalUser) {
                     connectCardView.visibility = View.GONE
                 }
                 connectCardView.setOnClickListener {
@@ -51,7 +51,7 @@ class TranslateResultActivity : AdActivity() {
                         finish()
                         CommunicationManager.instance.startFinish(TranslateActivity::class.java)
                     }
-                }
+                }*/
                 ocrCardView.setOnClickListener {
                     skip {
                         startActivity(

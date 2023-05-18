@@ -1,22 +1,12 @@
 package com.example.translate.ui
 
 import android.animation.ValueAnimator
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
-import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
-import android.widget.Toast
-import androidx.core.animation.addListener
-import com.example.translate.R
-import com.example.translate.ad.AdManager
-import com.example.translate.ad.AdPosition
 import com.example.translate.databinding.ActivityConnectLayoutBinding
 import com.example.translate.manager.ConnectManager
-import com.example.translate.manager.FirebaseManager
-import com.github.shadowsocks.bg.BaseService
 
-class ConnectActivity : BaseActivity(), ConnectManager.OnConnectListener {
+class ConnectActivity : BaseActivity()/*, ConnectManager.OnConnectListener*/ {
 
     companion object {
         const val IS_AUTO_CONNECT = "is_auto_connect"
@@ -24,7 +14,7 @@ class ConnectActivity : BaseActivity(), ConnectManager.OnConnectListener {
 
     private val mBinding by lazy { ActivityConnectLayoutBinding.inflate(layoutInflater) }
 
-    private val mConnectManager = ConnectManager(this, this)
+//    private val mConnectManager = ConnectManager(this, this)
 
     private var mIsAutoConnect = false
 
@@ -35,7 +25,7 @@ class ConnectActivity : BaseActivity(), ConnectManager.OnConnectListener {
 
     override fun getRootView(): View = mBinding.root
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+/*    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mIsAutoConnect = intent.getBooleanExtra(IS_AUTO_CONNECT, false)
         mConnectManager.startConnect()
@@ -167,7 +157,7 @@ class ConnectActivity : BaseActivity(), ConnectManager.OnConnectListener {
         if (ConnectManager.mConnectState != BaseService.State.Connected) {
             if (mIsAutoConnect) {
                 startConnect()
-            } /*else {
+            } *//*else {
                 mBinding.guideBgView.visibility = View.VISIBLE
                 mBinding.guideText.visibility = View.VISIBLE
                 mBinding.guideBgView.setOnClickListener {
@@ -176,7 +166,7 @@ class ConnectActivity : BaseActivity(), ConnectManager.OnConnectListener {
                     mBinding.guideText.visibility = View.GONE
                     startConnect()
                 }
-            }*/
+            }*//*
         }
     }
 
@@ -255,5 +245,5 @@ class ConnectActivity : BaseActivity(), ConnectManager.OnConnectListener {
                 }
             }
         }
-    }
+    }*/
 }

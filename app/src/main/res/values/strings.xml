@@ -1,11 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Easy Translator</string>
 
-    <string name="facebook_app_id">1175956893017028</string>
-    <string name="fb_login_protocol_scheme">fb1175956893017028</string>
-    <string name="facebook_client_token">c8717810e132f3c605e0ccbba6a3e1b0</string>
+    <string name="facebook_app_id">29394u3949</string>
+    <string name="fb_login_protocol_scheme">fb29394u3949</string>
+    <string name="facebook_client_token">testdnfdnkfkdfnk399433</string>
 
-    <string name="vpn">VPN</string>
+    <!--<string name="vpn">VPN</string>-->
     <string name="translate">Translate</string>
     <string name="translate_input_tip">Enter text here…</string>
     <string name="result">Result</string>
@@ -23,13 +23,13 @@
     <string name="wait_skip">Skip(%s)</string>
     <string name="connect_guide_desc">Open to protect your privacy and speed up your Internet access</string>
     <string name="try_it_now">Try It Now</string>
-    <string name="start_connect">Start to Connect</string>
+<!--    <string name="start_connect">Start to Connect</string>
     <string name="connecting">Connecting…%s</string>
     <string name="vpn_is_on">VPN is ON</string>
     <string name="disconnecting">Disconnecting…%s</string>
     <string name="connected">Connected</string>
     <string name="disconnected">Disconnected</string>
-    <string name="click_speed_up">Click to speed up.</string>
+    <string name="click_speed_up">Click to speed up.</string>-->
     <string name="identifying">Identifying…%s</string>
     <string name="click_translate">Click to translate.</string>
     <string name="wait_process_tip">Please wait for the process to complete. . .</string>

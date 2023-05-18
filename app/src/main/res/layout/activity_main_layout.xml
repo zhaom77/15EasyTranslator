@@ -105,7 +105,7 @@
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
+    <!--<androidx.cardview.widget.CardView
         android:id="@+id/vpn_card_view"
         android:layout_width="match_parent"
         android:layout_height="76dp"
@@ -148,7 +148,7 @@
                 android:src="@mipmap/icon_right"/>
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>-->
 
     <com.example.translate.ui.AdLayout
         android:id="@+id/ad_layout"

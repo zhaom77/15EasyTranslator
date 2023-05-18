@@ -9,11 +9,9 @@ import com.example.translate.ad.AdManager
 import com.example.translate.ad.AdPosition
 import com.example.translate.ad.load.LoadAd
 import com.example.translate.databinding.ActivityWelcomeLayoutBinding
-import com.example.translate.manager.ConnectManager
 import com.example.translate.manager.FirebaseManager
 import com.example.translate.manager.Logger
 import com.example.translate.manager.UserManager
-import com.github.shadowsocks.bg.BaseService
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.common.model.RemoteModelManager
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -34,7 +32,7 @@ class WelcomeActivity : BaseActivity() {
 
     private var mProgressAnim: ValueAnimator? = null
     private var mIsBack = false
-    private var mConnectManager: ConnectManager? = null
+//    private var mConnectManager: ConnectManager? = null
 
     override fun getRootView(): View = mBinding.root
 
@@ -51,7 +49,7 @@ class WelcomeActivity : BaseActivity() {
         UserManager.instance.apply {
             getConfigInfo {
                 if (isDestroyed) return@getConfigInfo
-                if (isPlanA) {
+/*                if (isPlanA) {
                     mConnectManager = ConnectManager(
                         this@WelcomeActivity,
                         object : ConnectManager.OnConnectListener {
@@ -84,9 +82,9 @@ class WelcomeActivity : BaseActivity() {
                         })
                     mConnectManager?.startConnect()
                     FirebaseManager.instance.onEvent(FirebaseManager.EventType.QD_LJ)
-                } else {
+                } else {*/
                     loadAd()
-                }
+//                }
             }
         }
     }
@@ -111,15 +109,15 @@ class WelcomeActivity : BaseActivity() {
                     }
                 }
             }
-            if (ConnectManager.mConnectState == BaseService.State.Connected) {
+/*            if (ConnectManager.mConnectState == BaseService.State.Connected) {
                 FirebaseManager.instance.onEvent(FirebaseManager.EventType.QD_LJ_SUC)
                 loadAd(this@WelcomeActivity, AdPosition.INTERSTITIAL_AD)
                 loadAd(this@WelcomeActivity, AdPosition.MAIN_NATIVE_AD)
                 loadAd(this@WelcomeActivity, AdPosition.TRANSLATE_NATIVE_AD)
-            } else {
+            } else {*/
                 loadAd(this@WelcomeActivity, AdPosition.MAIN_NATIVE_AD)
                 loadAd(this@WelcomeActivity, AdPosition.TRANSLATE_NATIVE_AD)
-            }
+//            }
         }
 
     }
