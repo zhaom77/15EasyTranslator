@@ -23,6 +23,9 @@ import kotlinx.coroutines.*
 
 class Translator : Application(), Utils.OnAppStatusChangedListener {
 
+    //key alias: Easy
+    //key store password: easy2023
+    //key password: easy2023
     companion object {
         @SuppressLint("StaticFieldLeak")
         private var instance: Translator? = null
