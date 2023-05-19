@@ -42,17 +42,18 @@ class MainActivity : BaseActivity() {
                 vpnCardView.visibility = View.GONE
             }*/
         }
-        AdManager.instance.loadAd(this, AdPosition.TRANSLATE_NATIVE_AD)
+        AdManager.instance.loadAd(this@MainActivity, AdPosition.INTERSTITIAL_AD)
     }
 
     private fun skip(cb: () -> Unit) {
-        if (UserManager.instance.isNormalUser) {
+        cb.invoke()
+/*        if (UserManager.instance.isNormalUser) {
             cb.invoke()
             return
         }
         AdManager.instance.showAd(this, AdPosition.INTERSTITIAL_AD, null) {
             cb.invoke()
-        }
+        }*/
     }
 
     override fun onResume() {
@@ -63,7 +64,6 @@ class MainActivity : BaseActivity() {
                     showAd(this@MainActivity, AdPosition.MAIN_NATIVE_AD, mBinding.adLayout)
                 }
             }
-            loadAd(this@MainActivity, AdPosition.INTERSTITIAL_AD)
         }
     }
 }

@@ -1,4 +1,5 @@
 import com.github.megatronking.stringfog.plugin.kg.RandomKeyGenerator
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -11,11 +12,13 @@ plugins {
 
 androidJunkCode {
     variantConfig {
-        release {//变体名称，如果没有设置productFlavors就是buildType名称，如果有设置productFlavors就是flavor+buildType，例如（freeRelease、proRelease）
+        release {
+//变体名称，如果没有设置productFlavors就是buildType名称，如果有设置productFlavors就是flavor+buildType，例如（freeRelease、proRelease）
             packageBase = "c.e.t.l"  //生成java类根包名
             packageCount = 30 //生成包数量
             activityCountPerPackage = 3 //每个包下生成Activity类数量
-            excludeActivityJavaFile = false //是否排除生成Activity的Java文件,默认false(layout和写入AndroidManifest.xml还会执行)，主要用于处理类似神策全埋点编译过慢问题
+            excludeActivityJavaFile = false
+            //是否排除生成Activity的Java文件,默认false(layout和写入AndroidManifest.xml还会执行)，主要用于处理类似神策全埋点编译过慢问题
             otherCountPerPackage = 50  //每个包下生成其它类的数量
             methodCountPerClass = 20  //每个类下生成方法数量
             resPrefix = "easy_"  //生成的layout、drawable、string等资源名前缀
@@ -29,10 +32,10 @@ stringfog {
     // 必要：加解密库的实现类路径，需和上面配置的加解密算法库一致。
     implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
     // 可选：加密开关，默认开启。
-    enable false
-    debug true
+    enable true
+//    debug true
     // 可选：指定需加密的代码包路径，可配置多个，未指定将默认全部加密。
-//    fogPackages = ['com.xxx.xxx']
+//    fogPackages = ['com.example.translate']
     // 可选（3.0版本新增）：指定密钥生成器，默认使用长度8的随机密钥（每个字符串均有不同随机密钥）,
     // 也可以指定一个固定的密钥：HardCodeKeyGenerator("This is a key")
     kg new RandomKeyGenerator()
@@ -49,8 +52,8 @@ android {
         applicationId "com.example.translate"
         minSdk 23
         targetSdk 33
-        versionCode 10000
-        versionName "1.0.0"
+        versionCode 10001
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,7 +61,9 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
         }
     }
     compileOptions {

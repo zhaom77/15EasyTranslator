@@ -2,6 +2,7 @@ package com.example.translate.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -10,6 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import com.example.translate.R
 import com.example.translate.ad.AdManager
 import com.example.translate.ad.AdPosition
+import com.example.translate.ad.load.LoadAd
 import com.example.translate.config.TranslatorConfig
 import com.example.translate.databinding.ActivityTranslateLayoutBinding
 import com.example.translate.dialog.LoadingDialog
@@ -106,6 +108,7 @@ class TranslateActivity : AdActivity() {
                 startTranslate()
             }
         }
+        AdManager.instance.loadAd(this, AdPosition.INTERSTITIAL_AD)
     }
 
     override fun onBackPressed() {
@@ -135,7 +138,8 @@ class TranslateActivity : AdActivity() {
             translate.await() + load.await()
             withContext(Dispatchers.Main) {
                 dialog.setComplete {
-                    if (loadSuccess) {
+                    Log.d(LoadAd.mTag, "loadSuccess: $loadSuccess isPause: $isPause")
+                    if (loadSuccess && !isPause) {
                         AdManager.instance.showAd(
                             this@TranslateActivity, AdPosition.INTERSTITIAL_AD
                         ) {

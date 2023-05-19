@@ -4,6 +4,7 @@ import com.example.translate.ad.AdType
 import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.nativead.NativeAd
+import kotlin.math.abs
 
 data class AdInfo(
     val adType: AdType,
@@ -15,6 +16,6 @@ data class AdInfo(
     private val initTime = System.currentTimeMillis()
 
     fun isExpired(): Boolean {
-        return System.currentTimeMillis() - initTime < 1000 * 60 * 59
+        return abs(System.currentTimeMillis() - initTime) > 1000 * 60 * 59
     }
 }

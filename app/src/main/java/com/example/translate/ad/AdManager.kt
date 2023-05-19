@@ -49,6 +49,7 @@ class AdManager {
         if (mAdConfig == null) {
             init(ConfigManager.instance.getAdConf())
         }
+        Logger.d({LoadAd.mTag}, {"loadAd: start load position: ${position.scene}"})
         if (mAdConfig == null) {
             complete?.invoke(false)
             Logger.d({ LoadAd.mTag }, { "ad config is null" })
@@ -103,9 +104,11 @@ class AdManager {
         position.isRequesting = true
         if (complete != null) mCompleteListeners[position] = complete
         val runnable = Runnable {
+            Logger.d({ LoadAd.mTag }, { "showAd: load fail: timeout" })
             loadComplete(position, false)
         }
         mHandler.postDelayed(runnable, 20000)
+        mOutTimeMap[position] = runnable
         GlobalScope.launch {
             for (source in positionInfo.sourceList) {
                 val adInfo = loadAd(context, source)
@@ -167,7 +170,13 @@ class AdManager {
         adLayout: AdLayout? = null,
         complete: (() -> Unit)? = null
     ) {
-        when (CacheAd.getAdType(position)) {
+        Logger.d({LoadAd.mTag}, {"showAd: start show"})
+        val adType = CacheAd.getAdType(position)
+        if (adType == null){
+            Logger.d({LoadAd.mTag}, {"show fail: adTy is null"})
+            return
+        }
+        when (adType) {
             AdType.NATIVE -> {
                 if (mNativeLoad == null) {
                     mNativeLoad = LoadNativeAd()

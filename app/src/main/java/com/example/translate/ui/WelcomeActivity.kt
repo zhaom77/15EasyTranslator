@@ -11,7 +11,6 @@ import com.example.translate.ad.load.LoadAd
 import com.example.translate.databinding.ActivityWelcomeLayoutBinding
 import com.example.translate.manager.FirebaseManager
 import com.example.translate.manager.Logger
-import com.example.translate.manager.UserManager
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.common.model.RemoteModelManager
 import com.google.mlkit.nl.translate.TranslateLanguage
@@ -46,10 +45,11 @@ class WelcomeActivity : BaseActivity() {
             gotoMain()
         }
         startDownloadTransMode()
-        UserManager.instance.apply {
+        loadAd()
+/*        UserManager.instance.apply {
             getConfigInfo {
                 if (isDestroyed) return@getConfigInfo
-/*                if (isPlanA) {
+*//*                if (isPlanA) {
                     mConnectManager = ConnectManager(
                         this@WelcomeActivity,
                         object : ConnectManager.OnConnectListener {
@@ -82,32 +82,36 @@ class WelcomeActivity : BaseActivity() {
                         })
                     mConnectManager?.startConnect()
                     FirebaseManager.instance.onEvent(FirebaseManager.EventType.QD_LJ)
-                } else {*/
+                } else {*//*
                     loadAd()
 //                }
             }
-        }
+        }*/
     }
 
 
     private fun loadAd() {
         AdManager.instance.apply {
-            loadAd(this@WelcomeActivity, AdPosition.WELCOME_AD) {
-                val waitTime = mBinding.progressBar.progress * 15
-                val time = if (waitTime > 2000) {
-                    200L
-                } else {
-                    2000L - waitTime + 200
-                }
-                startAnim(time) {
-                    if (it) {
-                        showAd(this@WelcomeActivity, AdPosition.WELCOME_AD, null) {
+            if (!isPause) {
+                loadAd(this@WelcomeActivity, AdPosition.WELCOME_AD) {
+                    val waitTime = mBinding.progressBar.progress * 15
+                    val time = if (waitTime > 2000) {
+                        200L
+                    } else {
+                        2000L - waitTime + 200
+                    }
+                    startAnim(time) {
+                        if (it && !isPause) {
+                            showAd(this@WelcomeActivity, AdPosition.WELCOME_AD, null) {
+                                gotoMain()
+                            }
+                        } else {
                             gotoMain()
                         }
-                    } else {
-                        gotoMain()
                     }
                 }
+            } else {
+                finish()
             }
 /*            if (ConnectManager.mConnectState == BaseService.State.Connected) {
                 FirebaseManager.instance.onEvent(FirebaseManager.EventType.QD_LJ_SUC)
@@ -115,8 +119,8 @@ class WelcomeActivity : BaseActivity() {
                 loadAd(this@WelcomeActivity, AdPosition.MAIN_NATIVE_AD)
                 loadAd(this@WelcomeActivity, AdPosition.TRANSLATE_NATIVE_AD)
             } else {*/
-                loadAd(this@WelcomeActivity, AdPosition.MAIN_NATIVE_AD)
-                loadAd(this@WelcomeActivity, AdPosition.TRANSLATE_NATIVE_AD)
+            loadAd(this@WelcomeActivity, AdPosition.MAIN_NATIVE_AD)
+            loadAd(this@WelcomeActivity, AdPosition.TRANSLATE_NATIVE_AD)
 //            }
         }
 

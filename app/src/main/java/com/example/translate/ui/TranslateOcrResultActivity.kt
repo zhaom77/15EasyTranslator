@@ -58,10 +58,6 @@ class TranslateOcrResultActivity : AdActivity() {
             ocrResultText.movementMethod = ScrollingMovementMethod.getInstance()
         }
         setPic(picPath)
-    }
-
-    override fun onResume() {
-        super.onResume()
         AdManager.instance.loadAd(this, AdPosition.INTERSTITIAL_AD)
     }
 

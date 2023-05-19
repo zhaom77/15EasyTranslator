@@ -23,17 +23,17 @@ class UserManager {
         get() = !isNormalUser && TranslatorConfig.userPlan == UserPlan.A.plan
 
 
-    fun getConfigInfo(complete: () -> Unit) = GlobalScope.launch {
-        var rate = ConfigManager.instance.getProgrammeAPer()
-        val config = async {
-            rate = getConfig()
-            1
-        }
+    fun getConfigInfo(complete: (() -> Unit)?) = GlobalScope.launch {
+        val rate = ConfigManager.instance.getProgrammeAPer()
+        /* val config = async {
+             rate = getConfig()
+             1
+         }*/
         val refer = async {
             startRefer()
             1
         }
-        config.await() + refer.await()
+        /*config.await() + */refer.await()
         Logger.d(
             { TAG },
             { "rate: $rate type: ${TranslatorConfig.mlType} plan: ${TranslatorConfig.userPlan}" })
@@ -56,11 +56,7 @@ class UserManager {
         }
         Logger.d({ TAG }, { "set complete user plan a: $isPlanA" })
         withContext(Dispatchers.Main) {
-            val adConf = ConfigManager.instance.getAdConf()
-            withContext(Dispatchers.IO) {
-                AdManager.instance.init(adConf)
-            }
-            complete.invoke()
+            complete?.invoke()
         }
     }
 

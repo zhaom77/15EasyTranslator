@@ -36,6 +36,11 @@ abstract class BaseActivity : AppCompatActivity() {
         isPause = true
     }
 
+    override fun onStop() {
+        super.onStop()
+        isPause = true
+    }
+
     private fun setStatusBar(view: View) {
         try {
             val statusView = view.findViewById<View>(R.id.status_view)

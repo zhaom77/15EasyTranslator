@@ -90,6 +90,7 @@ class TranslateOcrActivity : BaseActivity() {
                 }
             }
         }
+        AdManager.instance.loadAd(this, AdPosition.INTERSTITIAL_AD)
     }
 
     private fun obtainPer() {
@@ -205,7 +206,7 @@ class TranslateOcrActivity : BaseActivity() {
             identify.await() + loadAd.await()
             withContext(Dispatchers.Main) {
                 dialog.setComplete {
-                    if (loadSuccess) {
+                    if (loadSuccess && !isPause) {
                         AdManager.instance.showAd(
                             this@TranslateOcrActivity, AdPosition.INTERSTITIAL_AD
                         ) {

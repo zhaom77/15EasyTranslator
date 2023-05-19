@@ -74,6 +74,7 @@ class TranslateResultActivity : AdActivity() {
                 translateWordText.text = targetText
             }
         }
+        AdManager.instance.loadAd(this@TranslateResultActivity, AdPosition.INTERSTITIAL_AD)
     }
 
     private fun skip(cb: () -> Unit) {
@@ -96,7 +97,6 @@ class TranslateResultActivity : AdActivity() {
                     )
                 }
             }
-            loadAd(this@TranslateResultActivity, AdPosition.INTERSTITIAL_AD)
         }
     }
 }

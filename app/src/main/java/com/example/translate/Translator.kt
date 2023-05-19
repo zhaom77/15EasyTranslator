@@ -9,7 +9,10 @@ import android.content.Intent
 import android.os.Process
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
+import com.example.translate.ad.AdManager
+import com.example.translate.manager.ConfigManager
 import com.example.translate.manager.FirebaseManager
+import com.example.translate.manager.UserManager
 import com.example.translate.ui.WelcomeActivity
 import com.google.android.gms.ads.AdActivity
 import com.google.android.gms.ads.MobileAds
@@ -49,6 +52,10 @@ class Translator : Application(), Utils.OnAppStatusChangedListener {
         }
         AppUtils.registerAppStatusChangedListener(this)
         FirebaseManager.instance.init(this)
+        ConfigManager.instance.fetch {
+            UserManager.instance.getConfigInfo(null)
+            AdManager.instance.init(ConfigManager.instance.getAdConf())
+        }
     }
 
     private fun getProcessName(pid: Int): String? {
@@ -72,6 +79,9 @@ class Translator : Application(), Utils.OnAppStatusChangedListener {
     }
 
     override fun onBackground(activity: Activity?) {
+        if (activity is AdActivity) {
+            activity.finish()
+        }
     }
 
     override fun onTerminate() {
