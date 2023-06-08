@@ -29,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun adaptScreen() {
         resources.displayMetrics.apply {
-            val finalHeight = heightPixels / 760f
+            val finalHeight = heightPixels / 750f
             density = finalHeight
             scaledDensity = finalHeight
             densityDpi = (160 * finalHeight).toInt()
