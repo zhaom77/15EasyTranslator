@@ -191,6 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
+                            android:textIsSelectable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="16sp" />
 
@@ -224,6 +225,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
+                            android:textIsSelectable="true"
                             android:textColor="@color/color_0BB8D6"
                             android:textSize="16sp" />
 

@@ -1,4 +1,4 @@
-import com.github.megatronking.stringfog.plugin.kg.RandomKeyGenerator
+//import com.github.megatronking.stringfog.plugin.kg.RandomKeyGenerator
 
 plugins {
     id 'com.android.application'
@@ -7,7 +7,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'android-junk-code'
-    id 'stringfog'
+//    id 'stringfog'
 }
 
 androidJunkCode {
@@ -27,7 +27,7 @@ androidJunkCode {
         }
     }
 }
-
+/*
 stringfog {
     // 必要：加解密库的实现类路径，需和上面配置的加解密算法库一致。
     implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
@@ -42,7 +42,7 @@ stringfog {
     // 可选（4.0版本新增）：用于控制字符串加密后在字节码中的存在形式, 默认为base64，
     // 也可以使用text或者bytes
     mode base64
-}
+}*/
 
 android {
     namespace 'com.example.translate'
@@ -108,7 +108,7 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.31.1'
 
     //字符串加密
-    implementation 'com.github.megatronking.stringfog:xor:4.0.1'
+//    implementation 'com.github.megatronking.stringfog:xor:4.0.1'
 
     //翻译
     implementation 'com.google.mlkit:translate:17.0.1'

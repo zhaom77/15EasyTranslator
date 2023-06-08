@@ -19,11 +19,21 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun getRootView(): View
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        adaptScreen()
         super.onCreate(savedInstanceState)
         val view = getRootView()
         setContentView(view)
         initStatusBar(view)
         setStatusBar(view)
+    }
+
+    private fun adaptScreen() {
+        resources.displayMetrics.apply {
+            val finalHeight = heightPixels / 760f
+            density = finalHeight
+            scaledDensity = finalHeight
+            densityDpi = (160 * finalHeight).toInt()
+        }
     }
 
     override fun onResume() {

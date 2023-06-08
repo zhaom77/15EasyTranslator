@@ -29,9 +29,9 @@ buildscript {
         classpath("com.github.qq549631030:android-junk-code:1.2.1")
 
         //字符串加密
-        classpath("com.github.megatronking.stringfog:gradle-plugin:4.0.1")
+  /*      classpath("com.github.megatronking.stringfog:gradle-plugin:4.0.1")
         // 选用加解密算法库，默认实现了xor算法，也可以使用自己的加解密库。
-        classpath("com.github.megatronking.stringfog:xor:4.0.1")
+        classpath("com.github.megatronking.stringfog:xor:4.0.1")*/
     }
 }
 

@@ -1,9 +1,11 @@
 package com.example.translate.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -116,6 +118,8 @@ class TranslateActivity : AdActivity() {
     }
 
     private fun startTranslate() {
+        val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        manager.hideSoftInputFromWindow(mBinding.translateEdit.windowToken, 0)
         val sourceText = mBinding.translateEdit.text.toString()
         if (sourceText.isEmpty()) {
             Toast.makeText(this, R.string.not_text_tip, Toast.LENGTH_SHORT).show()
