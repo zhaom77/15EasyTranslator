@@ -44,6 +44,15 @@ stringfog {
     mode base64
 }*/
 
+
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
+static def getDateTime() {
+    DateFormat df = new SimpleDateFormat("yyyyMMddHHmm")
+    return df.format(new Date())
+}
+
 android {
     namespace 'com.example.translate'
     compileSdk 33
@@ -56,6 +65,7 @@ android {
         versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        setProperty("archivesBaseName", "${rootProject.name}-V${versionName}-${getDateTime()}")
     }
 
     buildTypes {
