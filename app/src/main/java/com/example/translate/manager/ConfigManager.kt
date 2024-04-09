@@ -11,19 +11,21 @@ class ConfigManager {
         val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { ConfigManager() }
     }
 
-    private val mRemoteConfig = Firebase.remoteConfig
+    //private val mRemoteConfig = Firebase.remoteConfig
 
     init {
-        mRemoteConfig.setDefaultsAsync(R.xml.default_config)
+        //mRemoteConfig.setDefaultsAsync(R.xml.default_config)
     }
 
-    fun fetch(cb: (Task<Boolean>) -> Unit) = mRemoteConfig.fetchAndActivate().addOnCompleteListener(cb)
+    fun fetch(cb: (Task<Boolean>) -> Unit) = {
+        //mRemoteConfig.fetchAndActivate().addOnCompleteListener(cb)
+    }
 
-    fun getAdConf(): String = mRemoteConfig.getString("ad_conf")
+    fun getAdConf(): String = ""//mRemoteConfig.getString("ad_conf")
 
-    fun getProgrammeAPer(): Long = mRemoteConfig.getLong("serve_rate")
+    fun getProgrammeAPer(): Long = 0//mRemoteConfig.getLong("serve_rate")
 
-    fun getConnects(): String = mRemoteConfig.getString("connects")
+    fun getConnects(): String = ""//mRemoteConfig.getString("connects")
 
-    fun getMode(): Long = mRemoteConfig.getLong("mode")
+    fun getMode(): Long = 0//mRemoteConfig.getLong("mode")
 }

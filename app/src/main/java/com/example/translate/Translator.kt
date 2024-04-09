@@ -16,8 +16,7 @@ import com.example.translate.manager.UserManager
 import com.example.translate.ui.WelcomeActivity
 import com.google.android.gms.ads.AdActivity
 import com.google.android.gms.ads.MobileAds
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.initialize
+import com.google.firebase.FirebaseApp
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.*
 
@@ -40,15 +39,16 @@ class Translator : Application(), Utils.OnAppStatusChangedListener {
 
     override fun onCreate() {
         super.onCreate()
-/*        try {
+        MMKV.initialize(this)
+        /*try {
             Core.init(this, WelcomeActivity::class)
         } catch (e: Exception) {
             e.printStackTrace()
         }*/
         if (getProcessName(Process.myPid()) != packageName) return
-        Firebase.initialize(this)
-        MMKV.initialize(this)
+
         try {
+            //FirebaseApp.initializeApp(this)
             MobileAds.initialize(this)
         } catch (e: Exception) {
             e.printStackTrace()

@@ -1,19 +1,17 @@
-//import com.github.megatronking.stringfog.plugin.kg.RandomKeyGenerator
-
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
-    id 'android-junk-code'
-//    id 'stringfog'
+    //id 'com.google.gms.google-services'
+    //id 'com.google.firebase.crashlytics'
+    //id 'android-junk-code'
+    id 'stringfog'
 }
 
-androidJunkCode {
+/*androidJunkCode {
     variantConfig {
         release {
-//变体名称，如果没有设置productFlavors就是buildType名称，如果有设置productFlavors就是flavor+buildType，例如（freeRelease、proRelease）
+            //变体名称，如果没有设置productFlavors就是buildType名称，如果有设置productFlavors就是flavor+buildType，例如（freeRelease、proRelease）
             packageBase = "c.e.t.l"  //生成java类根包名
             packageCount = 30 //生成包数量
             activityCountPerPackage = 3 //每个包下生成Activity类数量
@@ -26,24 +24,27 @@ androidJunkCode {
             stringCount = 300  //生成string数量
         }
     }
-}
-/*
+}*/
+
+// 导入RandomKeyGenerator类，如果使用HardCodeKeyGenerator，更换下类名
+import com.github.megatronking.stringfog.plugin.kg.RandomKeyGenerator
+
 stringfog {
     // 必要：加解密库的实现类路径，需和上面配置的加解密算法库一致。
     implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
+    // 可选：StringFog会自动尝试获取packageName，如果遇到获取失败的情况，可以显式地指定。
+    //packageName 'com.github.megatronking.stringfog.app'
     // 可选：加密开关，默认开启。
     enable true
-//    debug true
     // 可选：指定需加密的代码包路径，可配置多个，未指定将默认全部加密。
-//    fogPackages = ['com.example.translate']
+    fogPackages = ['com.example.translate']
     // 可选（3.0版本新增）：指定密钥生成器，默认使用长度8的随机密钥（每个字符串均有不同随机密钥）,
     // 也可以指定一个固定的密钥：HardCodeKeyGenerator("This is a key")
     kg new RandomKeyGenerator()
     // 可选（4.0版本新增）：用于控制字符串加密后在字节码中的存在形式, 默认为base64，
     // 也可以使用text或者bytes
     mode base64
-}*/
-
+}
 
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -96,8 +97,7 @@ android {
 }
 
 dependencies {
-
-//    implementation project(":core")
+    //implementation project(":core")
     implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -118,28 +118,24 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.31.1'
 
     //字符串加密
-//    implementation 'com.github.megatronking.stringfog:xor:4.0.1'
+    implementation 'com.github.megatronking.stringfog:xor:4.0.1'
 
     //翻译
     implementation 'com.google.mlkit:translate:17.0.1'
     implementation 'com.google.mlkit:language-id:17.0.4'
     // To recognize Latin script
     implementation 'com.google.mlkit:text-recognition:16.0.0'
-
     // To recognize Chinese script
     implementation 'com.google.mlkit:text-recognition-chinese:16.0.0'
-
     // To recognize Devanagari script
     implementation 'com.google.mlkit:text-recognition-devanagari:16.0.0'
-
     // To recognize Japanese script
     implementation 'com.google.mlkit:text-recognition-japanese:16.0.0'
-
     // To recognize Korean script
     implementation 'com.google.mlkit:text-recognition-korean:16.0.0'
 
     //firebase
-    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-config-ktx'
