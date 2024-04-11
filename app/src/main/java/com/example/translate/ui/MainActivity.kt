@@ -3,10 +3,12 @@ package com.example.translate.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.example.translate.ad.AdManager
 import com.example.translate.ad.AdPosition
 import com.example.translate.databinding.ActivityMainLayoutBinding
-import com.example.translate.manager.UserManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
 
@@ -28,7 +30,7 @@ class MainActivity : BaseActivity() {
                     startActivity(Intent(this@MainActivity, TranslateOcrActivity::class.java))
                 }
             }
-/*            vpnCardView.setOnClickListener {
+            /*vpnCardView.setOnClickListener {
                 skip {
                     startActivity(Intent(this@MainActivity, ConnectActivity::class.java))
                 }
@@ -56,14 +58,28 @@ class MainActivity : BaseActivity() {
         }*/
     }
 
+    private var lastShownTms = 0L
     override fun onResume() {
         super.onResume()
-        AdManager.instance.apply {
-            loadAd(this@MainActivity, AdPosition.MAIN_NATIVE_AD) {
-                if (it && !isPause) {
-                    showAd(this@MainActivity, AdPosition.MAIN_NATIVE_AD, mBinding.adLayout)
+
+        fun showNativeAd() {
+            AdManager.instance.apply {
+                loadAd(this@MainActivity, AdPosition.MAIN_NATIVE_AD) {
+                    if (it && !isPause) {
+                        lastShownTms = System.currentTimeMillis()
+                        showAd(this@MainActivity, AdPosition.MAIN_NATIVE_AD, mBinding.adLayout)
+
+                        loadAd(this@MainActivity, AdPosition.MAIN_NATIVE_AD)
+                    }
                 }
             }
+        }
+
+        if (System.currentTimeMillis() - lastShownTms < 45_000L) return
+        lifecycleScope.launch {
+            delay(100L)
+            if (isPause) return@launch
+            showNativeAd()
         }
     }
 }

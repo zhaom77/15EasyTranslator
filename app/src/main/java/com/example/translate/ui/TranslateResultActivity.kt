@@ -3,12 +3,15 @@ package com.example.translate.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.example.translate.ad.AdManager
 import com.example.translate.ad.AdPosition
 import com.example.translate.databinding.ActivityTranslateResultLayoutBinding
 import com.example.translate.info.LanguageInfo
 import com.example.translate.manager.CommunicationManager
 import com.example.translate.manager.UserManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class TranslateResultActivity : AdActivity() {
 
@@ -89,14 +92,23 @@ class TranslateResultActivity : AdActivity() {
 
     override fun onResume() {
         super.onResume()
-        AdManager.instance.apply {
-            loadAd(this@TranslateResultActivity, AdPosition.MAIN_NATIVE_AD) {
-                if (it && !isPause) {
-                    showAd(
-                        this@TranslateResultActivity, AdPosition.MAIN_NATIVE_AD, mBinding.adLayout
-                    )
+        fun showNativeAd() {
+            AdManager.instance.apply {
+                loadAd(this@TranslateResultActivity, AdPosition.MAIN_NATIVE_AD) {
+                    if (it && !isPause) {
+                        showAd(
+                            this@TranslateResultActivity, AdPosition.MAIN_NATIVE_AD, mBinding.adLayout
+                        )
+                    }
                 }
             }
         }
+
+        lifecycleScope.launch {
+            delay(100L)
+            if (isPause) return@launch
+            showNativeAd()
+        }
+
     }
 }

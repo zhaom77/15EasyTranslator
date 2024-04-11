@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import com.example.translate.R
 import com.example.translate.ad.AdManager
 import com.example.translate.ad.AdPosition
@@ -144,9 +145,7 @@ class TranslateActivity : AdActivity() {
                 dialog.setComplete {
                     Log.d(LoadAd.mTag, "loadSuccess: $loadSuccess isPause: $isPause")
                     if (loadSuccess && !isPause) {
-                        AdManager.instance.showAd(
-                            this@TranslateActivity, AdPosition.INTERSTITIAL_AD
-                        ) {
+                        AdManager.instance.showAd(this@TranslateActivity, AdPosition.INTERSTITIAL_AD) {
                             gotoResult(sourceText, targetText)
                         }
                     } else {
@@ -232,14 +231,22 @@ class TranslateActivity : AdActivity() {
 
     override fun onResume() {
         super.onResume()
-        AdManager.instance.apply {
-            loadAd(this@TranslateActivity, AdPosition.TRANSLATE_NATIVE_AD) {
-                if (it && !isPause) {
-                    showAd(
-                        this@TranslateActivity, AdPosition.TRANSLATE_NATIVE_AD, mBinding.adLayout
-                    )
+        fun showAd() {
+            AdManager.instance.apply {
+                loadAd(this@TranslateActivity, AdPosition.TRANSLATE_NATIVE_AD) {
+                    if (it && !isPause) {
+                        showAd(this@TranslateActivity, AdPosition.TRANSLATE_NATIVE_AD, mBinding.adLayout)
+                        //preload
+                        loadAd(this@TranslateActivity, AdPosition.TRANSLATE_NATIVE_AD)
+                    }
                 }
             }
+        }
+
+        lifecycleScope.launch {
+            delay(100L)
+            if (isPause) return@launch
+            showAd()
         }
     }
 

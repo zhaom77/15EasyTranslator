@@ -41,7 +41,7 @@ class WelcomeActivity : BaseActivity() {
         FirebaseManager.instance.onEvent(FirebaseManager.EventType.LOAD_SHOW, Bundle().apply {
             putString("type", if (mIsBack) "h" else "c")
         })
-        startAnim(15000) {
+        startAnim(12_000) {
             gotoMain()
         }
         startDownloadTransMode()

@@ -72,7 +72,7 @@ class AdManager {
             Logger.d({ LoadAd.mTag }, { "ad position config is null" })
             return
         }
-        loadAd(context, position, info, complete)
+        loadAd(context.applicationContext, position, info, complete)
     }
 
     private fun loadAd(
